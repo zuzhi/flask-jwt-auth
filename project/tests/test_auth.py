@@ -114,14 +114,7 @@ class TestAuthBlueprint(BaseTestCase):
         """ Test for logout before token expires """
         with self.client:
             # user registration
-            resp_register = self.client.post(
-                '/auth/register',
-                data=json.dumps(dict(
-                    email='joe@gmail.com',
-                    password='123456'
-                )),
-                content_type='application/json',
-            )
+            resp_register = register_user(self, 'joe@gmail.com', '123456')
             data_register = json.loads(resp_register.data.decode())
             self.assertTrue(data_register['status'] == 'success')
             self.assertTrue(
